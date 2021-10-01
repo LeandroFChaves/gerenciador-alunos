@@ -5,6 +5,7 @@ import { postgreSQLConfig } from './configs/postgresql.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { AlunosModule } from './alunos/alunos.module';
 
 @Module({
   imports: [AuthModule, TypeOrmModule.forRoot(postgreSQLConfig), AlunosModule],
