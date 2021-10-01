@@ -1,0 +1,34 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>Aluno</mat-card-title>
+
+    <br>
+
+    <form [formGroup]="formulario">
+      <mat-form-field appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input matInput type="text" id="input-nome" formControlName="nome" placeholder="Nome do aluno" required/>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Situação</mat-label>
+        <input matInput type="text" id="input-situacao" formControlName="situacao" placeholder="Situação do aluno" required/>
+      </mat-form-field>
+
+      <p></p>
+      <section>
+        <div class="div-salvar-cancelar">
+          <button mat-raised-button color="warn" class="btn-salvar-cancelar" *ngIf="!isVisualizacao" (click)="cancelar()">
+            Cancelar
+          </button>
+          <button mat-raised-button color="primary" class="btn-salvar-cancelar" *ngIf="!isVisualizacao" (click)="salvar()">
+            Salvar
+          </button>
+          <button mat-raised-button color="accent" class="btn-salvar-cancelar" *ngIf="isVisualizacao" (click)="cancelar()">
+            Voltar
+          </button>
+        </div>
+      </section>
+    </form>
+  </mat-card-content>
+</mat-card>
