@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  ValidationPipe,
 } from '@nestjs/common';
 
 import { Aluno } from './aluno.entity';
@@ -27,13 +28,18 @@ export class AlunosController {
   }
 
   @Post()
-  async createAdminUser(@Body() createAlunoDto: AlunoDto): Promise<Aluno> {
+  async createAluno(
+    @Body(ValidationPipe) createAlunoDto: AlunoDto,
+  ): Promise<Aluno> {
     const aluno = await this.alunosService.createAluno(createAlunoDto);
     return aluno;
   }
 
   @Put(':id')
-  async updateUser(@Body() updateAlunoDto: AlunoDto, @Param('id') id: string) {
+  async updateAluno(
+    @Body(ValidationPipe) updateAlunoDto: AlunoDto,
+    @Param('id') id: string,
+  ) {
     return this.alunosService.updateAluno(updateAlunoDto, id);
   }
 
