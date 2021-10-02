@@ -1,8 +1,12 @@
 import { NestFactory } from '@nestjs/core';
+import { WinstonModule } from 'nest-winston';
+
 import { AppModule } from './app.module';
+import { logConfig } from './configs/logs.config';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const logger = WinstonModule.createLogger(logConfig);
+  const app = await NestFactory.create(AppModule, { logger });
 
   app.enableCors({
     origin: true,
