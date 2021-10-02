@@ -2,20 +2,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { delay, first, tap } from 'rxjs/operators';
 
-import { environment } from './../../environments/environment';
-import { Aluno, AlunoInput } from './model/aluno';
+import { environment } from '../../environments/environment';
+import { Pessoa, PessoaInput } from './model/pessoa';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AlunosService {
+export class PessoasService {
 
   constructor(
     private http: HttpClient
   ) { }
 
   listAll() {
-    return this.http.get<Aluno[]>(`${environment.URL_API}/alunos`)
+    return this.http.get<Pessoa[]>(`${environment.URL_API}/pessoas`)
     .pipe(
       first(),
       // delay(5000),
@@ -26,7 +26,7 @@ export class AlunosService {
   }
 
   getById(id: number) {
-    return this.http.get<Aluno>(`${environment.URL_API}/alunos/${id}`)
+    return this.http.get<Pessoa>(`${environment.URL_API}/pessoas/${id}`)
     .pipe(
       first(),
       tap((data : any) => {
@@ -35,19 +35,19 @@ export class AlunosService {
     );
   }
 
-  create(aluno: AlunoInput) {
+  create(pessoa: PessoaInput) {
     const headers = new HttpHeaders().append('Content-Type', 'application/json');
 
-    return this.http.post(`${environment.URL_API}/alunos`, JSON.stringify(aluno), { headers });
+    return this.http.post(`${environment.URL_API}/pessoas`, JSON.stringify(pessoa), { headers });
   }
 
-  update(id: number, aluno: AlunoInput) {
+  update(id: number, pessoa: PessoaInput) {
     const headers = new HttpHeaders().append('Content-Type', 'application/json');
 
-    return this.http.put(`${environment.URL_API}/alunos/${id}`, JSON.stringify(aluno), { headers });
+    return this.http.put(`${environment.URL_API}/pessoas/${id}`, JSON.stringify(pessoa), { headers });
   }
 
   delete(id: number) {
-    return this.http.delete(`${environment.URL_API}/alunos/${id}`);
+    return this.http.delete(`${environment.URL_API}/pessoas/${id}`);
   }
 }

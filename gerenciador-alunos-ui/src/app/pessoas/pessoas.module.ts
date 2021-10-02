@@ -3,21 +3,21 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppMaterialModule } from '../shared/app-material.module';
-import { AlunosRoutingModule } from './alunos-routing.module';
-import { AlunoListComponent } from './aluno-list/aluno-list.component';
-import { AlunoFormComponent } from './aluno-form/aluno-form.component';
+import { PessoasRoutingModule } from './pessoas-routing.module';
+import { PessoaListComponent } from './pessoa-list/pessoa-list.component';
+import { PessoaFormComponent } from './pessoa-form/pessoa-form.component';
 
 @NgModule({
   declarations: [
-    AlunoListComponent,
-    AlunoFormComponent
+    PessoaListComponent,
+    PessoaFormComponent
   ],
 
   imports: [
     CommonModule,
     ReactiveFormsModule,
     AppMaterialModule,
-    AlunosRoutingModule
+    PessoasRoutingModule
   ]
 })
-export class AlunosModule { }
+export class PessoasModule { }

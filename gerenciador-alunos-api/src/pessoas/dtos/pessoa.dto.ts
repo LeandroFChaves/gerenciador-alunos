@@ -1,6 +1,6 @@
 import { IsNotEmpty, MaxLength } from 'class-validator';
 
-export class AlunoDto {
+export class PessoaDto {
   @IsNotEmpty({
     message: 'Informe um nome para o aluno',
   })

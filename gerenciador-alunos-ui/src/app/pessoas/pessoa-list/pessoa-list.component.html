@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-content>
-    <mat-card-title>Alunos</mat-card-title>
+    <mat-card-title>Pessoas</mat-card-title>
 
     <div class="div-novo">
       <button mat-raised-button color="primary" class="btn-novo" [routerLink]="['novo']">
@@ -10,7 +10,7 @@
 
     <br>
 
-    <!--div *ngIf="alunos$ | async as alunos; else loading"-->
+    <!--div *ngIf="pessoas$ | async as pessoas; else loading"-->
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z3">
         <ng-container matColumnDef="nome">
           <th mat-header-cell *matHeaderCellDef>Nome</th>

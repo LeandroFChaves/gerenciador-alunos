@@ -4,17 +4,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 
-import { AlunosService } from '../alunos.service';
-import { Aluno, AlunoInput } from '../model/aluno';
+import { PessoasService } from '../pessoas.service';
+import { Pessoa, PessoaInput } from '../model/pessoa';
 
 @Component({
-  selector: 'app-aluno-form',
-  templateUrl: './aluno-form.component.html',
-  styleUrls: ['./aluno-form.component.scss']
+  selector: 'app-pessoa-form',
+  templateUrl: './pessoa-form.component.html',
+  styleUrls: ['./pessoa-form.component.scss']
 })
-export class AlunoFormComponent implements OnInit {
+export class PessoaFormComponent implements OnInit {
 
-  private idAluno: number | undefined;
+  private idPessoa: number | undefined;
 
   formulario: FormGroup = new FormGroup({});
   isVisualizacao: boolean = false;
@@ -23,12 +23,12 @@ export class AlunoFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private alunosService: AlunosService
+    private alunosService: PessoasService
   ) {
-    const aluno = this.router.getCurrentNavigation()?.extras.state;
+    const pessoa = this.router.getCurrentNavigation()?.extras.state;
 
-    if (aluno) {
-      this.isVisualizacao = aluno.visualizacao;
+    if (pessoa) {
+      this.isVisualizacao = pessoa.visualizacao;
     }
   }
 
@@ -55,31 +55,31 @@ export class AlunoFormComponent implements OnInit {
       map((params: any) => params.id),
       switchMap((id: number) => {
         if (id) {
-          this.idAluno = id;
+          this.idPessoa = id;
           return this.alunosService.getById(id);
         }
 
         return EMPTY;
       })
     )
-    .subscribe((aluno: Aluno) => {
-      this.updateForm(aluno);
+    .subscribe((pessoa: Pessoa) => {
+      this.updateForm(pessoa);
     });
   }
 
   salvar(): void {
     if (this.formulario.valid) {
-      let aluno: AlunoInput = this.formulario.getRawValue() as AlunoInput;
+      let pessoa: PessoaInput = this.formulario.getRawValue() as PessoaInput;
 
-      if (this.idAluno) {
-        this.alunosService.update(this.idAluno, aluno).subscribe((data: any) => {
-          this.router.navigate(['alunos']);
+      if (this.idPessoa) {
+        this.alunosService.update(this.idPessoa, pessoa).subscribe((data: any) => {
+          this.router.navigate(['pessoas']);
         }, (error) => {
           console.error(error);
         });
       } else {
-        this.alunosService.create(aluno).subscribe((data: any) => {
-          this.router.navigate(['alunos']);
+        this.alunosService.create(pessoa).subscribe((data: any) => {
+          this.router.navigate(['pessoas']);
         }, (error) => {
           console.error(error);
         });
@@ -111,15 +111,15 @@ export class AlunoFormComponent implements OnInit {
 
   cancelar(): void {
     this.formulario.reset();
-    this.router.navigate(['alunos']);
+    this.router.navigate(['pessoas']);
   }
 
-  private updateForm(aluno: Aluno): void {
+  private updateForm(pessoa: Pessoa): void {
     this.isVisualizacao ? this.formulario.disable() : false;
 
     this.formulario.patchValue({
-      nome: aluno.nome,
-      situacao: aluno.situacao
+      nome: pessoa.nome,
+      situacao: pessoa.situacao
     });
   }
 

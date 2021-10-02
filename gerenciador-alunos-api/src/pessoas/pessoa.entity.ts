@@ -10,7 +10,7 @@ import {
 
 @Entity()
 @Unique(['id'])
-export class Aluno extends BaseEntity {
+export class Pessoa extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
   id: string;
 

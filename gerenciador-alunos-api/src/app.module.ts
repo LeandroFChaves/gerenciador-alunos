@@ -8,7 +8,7 @@ import { postgreSQLConfig } from './configs/postgresql.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { AlunosModule } from './alunos/alunos.module';
+import { PessoasModule } from './pessoas/pessoas.module';
 import { LoggerInterceptor } from './interceptors/logger.interceptor';
 
 @Module({
@@ -16,7 +16,7 @@ import { LoggerInterceptor } from './interceptors/logger.interceptor';
     TypeOrmModule.forRoot(postgreSQLConfig),
     WinstonModule.forRoot(logConfig),
     AuthModule,
-    AlunosModule,
+    PessoasModule,
   ],
   controllers: [AppController],
   providers: [

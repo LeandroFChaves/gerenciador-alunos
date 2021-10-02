@@ -5,14 +5,14 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'alunos',
+    redirectTo: 'pessoas',
   },
 
   {
-    path: 'alunos',
+    path: 'pessoas',
     loadChildren: () =>
-      import(`./alunos/alunos.module`).then(
-        (module) => module.AlunosModule
+      import(`./pessoas/pessoas.module`).then(
+        (module) => module.PessoasModule
       ),
   }
 ];
