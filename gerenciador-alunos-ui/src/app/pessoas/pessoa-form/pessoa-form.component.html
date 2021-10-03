@@ -5,17 +5,150 @@
     <br>
 
     <form [formGroup]="formulario">
-      <mat-form-field appearance="fill">
-        <mat-label>Nome</mat-label>
-        <input matInput type="text" id="input-nome" formControlName="nome" placeholder="Nome" required/>
-      </mat-form-field>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="nome" placeholder="Nome" required/>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Situação</mat-label>
-        <input matInput type="text" id="input-situacao" formControlName="situacao" placeholder="Situação" required/>
-      </mat-form-field>
+            <mat-error *ngIf="hasError('nome') && hasError('nome')?.required">
+              Nome é obrigatório!
+            </mat-error>
+            <mat-error *ngIf="hasError('nome') && hasError('nome')?.maxlength">
+              Nome pode ter no máximo {{ hasError('nome')?.maxlength?.requiredLength }} caracteres.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>CPF</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="cpf" placeholder="CPF" required/>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>RG</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="rg" placeholder="RG"/>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <mat-form-field appearance="fill">
+            <mat-label>CEP</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="cep" placeholder="CEP"/>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-7">
+          <mat-form-field appearance="fill">
+            <mat-label>Endereço</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="endereco" placeholder="Endereço" required/>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-2">
+          <mat-form-field appearance="fill">
+            <mat-label>Número</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="numero" placeholder="Número" required/>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Bairro</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="bairro" placeholder="Bairro"/>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Cidade</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="cidade" placeholder="Cidade"/>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Estado</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="estado" placeholder="Estado"/>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Telefone Fixo</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="telefone1" placeholder="Telefone Fixo" required/>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Telefone Celular</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="telefone2" placeholder="Telefone Celular"/>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="email" placeholder="Email" required/>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Data de Nascimento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dataNascimento" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Altura</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="altura" placeholder="Altura"/>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Peso</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="peso" placeholder="Peso"/>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field appearance="fill">
+            <mat-label>Situação</mat-label>
+            <select matNativeControl formControlName="situacao" required>
+              <option label="--Selecione --"></option>
+              <option value="Pendente">Pendente</option>
+              <option value="Ativo">Ativo</option>
+              <option value="Inativo">Inativo</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
 
       <p></p>
+
       <section>
         <div class="div-salvar-cancelar">
           <button mat-raised-button color="warn" class="btn-salvar-cancelar" *ngIf="!isVisualizacao" (click)="cancelar()">

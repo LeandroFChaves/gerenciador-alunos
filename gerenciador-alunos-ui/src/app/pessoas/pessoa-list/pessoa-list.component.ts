@@ -14,7 +14,7 @@ import { UtilsService } from '../../core/utils.service';
 export class PessoaListComponent implements OnInit {
 
   dataSource = new MatTableDataSource<Pessoa>([]);
-  displayedColumns = ['nome', 'situacao', 'acoes'];
+  displayedColumns = ['nome', 'email', 'telefone1', 'telefone2', 'situacao', 'acoes'];
 
   constructor(
     private router: Router,
