@@ -56,6 +56,14 @@ export class PessoaFormComponent implements OnInit {
       situacao: [null, [Validators.required]],
     });
 
+    this.formulario.get('cep')?.statusChanges.pipe(
+      switchMap(status => status === 'VALID' ?
+        this.alunosService.consultarCEP(this.formulario.get('cep')?.value)
+        : EMPTY
+      )
+    )
+    .subscribe(dados => dados ? this.updateFormEndereco(dados) : {});
+
     this.route.params
       .pipe(
         map((params: any) => params.id),
@@ -146,6 +154,16 @@ export class PessoaFormComponent implements OnInit {
       altura: pessoa.altura,
       peso: pessoa.peso,
       situacao: pessoa.situacao
+    });
+  }
+
+  private updateFormEndereco(dados: any) {
+    this.formulario.patchValue({
+      endereco: dados.logradouro,
+      complemento: dados.complemento,
+      bairro: dados.bairro,
+      cidade: dados.localidade,
+      estado: dados.uf
     });
   }
 }
