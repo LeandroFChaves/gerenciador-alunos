@@ -38,13 +38,13 @@ export class PessoasController {
   @Put(':id')
   async updatePessoa(
     @Body(ValidationPipe) updatePessoaDto: PessoaDto,
-    @Param('id') id: string,
+    @Param('id') id: number,
   ) {
     return this.pessoasService.updatePessoa(updatePessoaDto, id);
   }
 
   @Delete(':id')
-  async deletePessoa(@Param('id') id: string) {
+  async deletePessoa(@Param('id') id: number) {
     await this.pessoasService.deletePessoa(id);
     return {
       message: 'Pessoa removida com sucesso.',

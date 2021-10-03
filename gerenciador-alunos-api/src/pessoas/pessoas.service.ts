@@ -31,7 +31,7 @@ export class PessoasService {
     return this.pessoaRepository.createPessoa(createPessoaDto);
   }
 
-  async updatePessoa(updatePessoaDto: PessoaDto, id: string) {
+  async updatePessoa(updatePessoaDto: PessoaDto, id: number) {
     const result = await this.pessoaRepository.update({ id }, updatePessoaDto);
     if (result.affected > 0) {
       const user = await this.findPessoaById(id);
@@ -41,7 +41,7 @@ export class PessoasService {
     }
   }
 
-  async deletePessoa(pessoaId: string) {
+  async deletePessoa(pessoaId: number) {
     const result = await this.pessoaRepository.delete({ id: pessoaId });
     if (result.affected === 0) {
       throw new NotFoundException(
