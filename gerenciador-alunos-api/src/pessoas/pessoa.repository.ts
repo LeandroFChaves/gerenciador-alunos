@@ -8,7 +8,7 @@ import { PessoaDto } from './dtos/pessoa.dto';
 export class PessoaRepository extends Repository<Pessoa> {
   async listPessoas(): Promise<{ pessoas: Pessoa[]; total: number }> {
     const query = this.createQueryBuilder('pessoa');
-    query.select(['pessoa.id', 'pessoa.nome', 'pessoa.situacao']);
+    query.select(['pessoa']);
 
     const [pessoas, total] = await query.getManyAndCount();
 

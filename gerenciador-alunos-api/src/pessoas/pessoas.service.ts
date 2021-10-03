@@ -17,10 +17,8 @@ export class PessoasService {
     return pessoas;
   }
 
-  async findPessoaById(pessoaId: string): Promise<Pessoa> {
-    const pessoa = await this.pessoaRepository.findOne(pessoaId, {
-      select: ['id', 'nome', 'situacao'],
-    });
+  async findPessoaById(pessoaId: number): Promise<Pessoa> {
+    const pessoa = await this.pessoaRepository.findOne(pessoaId);
 
     if (!pessoa) throw new NotFoundException('Pessoa não encontrado!');
 
