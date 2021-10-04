@@ -1,0 +1,83 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>Produtos</mat-card-title>
+
+    <br>
+
+    <form [formGroup]="formulario">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" id="input-nome" formControlName="nome" placeholder="Nome" required/>
+
+            <mat-error *ngIf="hasError('nome') && hasError('nome')?.required">
+              Nome é obrigatório!
+            </mat-error>
+            <mat-error *ngIf="hasError('nome') && hasError('nome')?.maxlength">
+              Nome pode ter no máximo {{ hasError('nome')?.maxlength?.requiredLength }} caracteres.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Valor</mat-label>
+            <input matInput type="text" id="input-valor" formControlName="valor" placeholder="Valor do produto" required/>
+
+            <mat-error *ngIf="hasError('valor') && hasError('valor')?.required">
+              Informe um valor para o produto!
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Estoque</mat-label>
+            <input matInput type="text" id="input-estoque" formControlName="estoque" placeholder="Estoque do produto"/>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Descrição</mat-label>
+            <textarea matInput formControlName="descricao" placeholder="Descrição do produto"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field appearance="fill">
+            <mat-label>Situação</mat-label>
+            <mat-select matNativeControl formControlName="situacao" required>
+              <mat-option label="--Selecione --"></mat-option>
+              <mat-option value="Ativo">Ativo</mat-option>
+              <mat-option value="Inativo">Inativo</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <p></p>
+
+      <section>
+        <div class="div-salvar-cancelar">
+          <button mat-raised-button color="warn" class="btn-salvar-cancelar" *ngIf="!isVisualizacao" (click)="cancelar()">
+            Cancelar
+          </button>
+          <button mat-raised-button color="primary" class="btn-salvar-cancelar" *ngIf="!isVisualizacao" (click)="salvar()">
+            Salvar
+          </button>
+          <button mat-raised-button color="accent" class="btn-salvar-cancelar" *ngIf="isVisualizacao" (click)="cancelar()">
+            Voltar
+          </button>
+        </div>
+      </section>
+    </form>
+  </mat-card-content>
+</mat-card>
