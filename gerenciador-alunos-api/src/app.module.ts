@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { LoggerInterceptor } from './interceptors/logger.interceptor';
+import { ProdutosModule } from './produtos/produtos.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { LoggerInterceptor } from './interceptors/logger.interceptor';
     WinstonModule.forRoot(logConfig),
     AuthModule,
     PessoasModule,
+    ProdutosModule,
   ],
   controllers: [AppController],
   providers: [
