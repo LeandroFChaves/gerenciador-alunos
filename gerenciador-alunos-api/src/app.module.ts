@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { LoggerInterceptor } from './interceptors/logger.interceptor';
 import { ProdutosModule } from './produtos/produtos.module';
+import { VendasModule } from './vendas/vendas.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ProdutosModule } from './produtos/produtos.module';
     AuthModule,
     PessoasModule,
     ProdutosModule,
+    VendasModule,
   ],
   controllers: [AppController],
   providers: [
