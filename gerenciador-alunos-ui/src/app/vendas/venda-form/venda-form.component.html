@@ -1,0 +1,171 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>Vendas</mat-card-title>
+
+    <br>
+
+    <form [formGroup]="formulario">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Cliente</mat-label>
+            <mat-select [(value)]="selectedCliente" [compareWith]="compareWithCliente" formControlName="pessoaCliente">
+              <mat-option *ngFor="let pessoa of pessoas" [value]="pessoa">
+                {{ pessoa.nome }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Vendedor</mat-label>
+            <mat-select [(value)]="selectedVendedor" [compareWith]="compareWithVendedor" formControlName="pessoaVendedor">
+              <mat-option *ngFor="let pessoa of pessoas" [value]="pessoa">
+                {{ pessoa.nome }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Data da Venda</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dataVenda" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Forma Pagamento</mat-label>
+            <mat-select matNativeControl formControlName="formaPagamento" required>
+              <mat-option label="--Selecione --"></mat-option>
+              <mat-option value="Dinheiro">Dinheiro</mat-option>
+              <mat-option value="PIX">PIX</mat-option>
+              <mat-option value="Débito">Débito</mat-option>
+              <mat-option value="Crédito">Crédito</mat-option>
+              <mat-option value="Transferência">Transferência</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Desconto</mat-label>
+            <input matInput type="text" id="input-desconto" formControlName="desconto" placeholder="Desconto" (change)="onChangeDesconto($event)"/>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Valor Bruto</mat-label>
+            <input matInput type="text" id="input-valor-bruto" formControlName="valorBruto" placeholder="Valor Bruto"
+              required />
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Valor Líquido</mat-label>
+            <input matInput type="text" id="input-valor-liquido" formControlName="valorLiquido" placeholder="Valor líquido"
+              required />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Observação</mat-label>
+            <textarea matInput formControlName="observacao" placeholder="Observações da venda"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <p></p>
+
+      <div class="div-novo">
+        <button mat-raised-button color="primary" class="btn-novo" *ngIf="!isVisualizacao" (click)="novoItemVenda()">
+          <mat-icon>note_add</mat-icon> Novo Item
+        </button>
+      </div>
+      <br />
+
+
+
+
+      <div class="tabs-table-grid-interna">
+        <table mat-table [dataSource]="dataSourceItensVenda">
+          <ng-container matColumnDef="produto">
+            <th mat-header-cell *matHeaderCellDef>Produto</th>
+            <td mat-cell *matCellDef="let itemVenda">
+              {{ itemVenda?.produto.nome }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="quantidade">
+            <th mat-header-cell *matHeaderCellDef>Quantidade</th>
+            <td mat-cell *matCellDef="let itemVenda">
+              {{ itemVenda?.quantidade }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="desconto">
+            <th mat-header-cell *matHeaderCellDef>Desconto</th>
+            <td mat-cell *matCellDef="let itemVenda">
+              {{ itemVenda?.desconto ? itemVenda?.desconto : '0,00' }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="valor">
+            <th mat-header-cell *matHeaderCellDef>Valor</th>
+            <td mat-cell *matCellDef="let itemVenda">
+              {{ itemVenda?.valor }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let itemVenda" class="action-link col-acoes">
+              <button mat-icon-button color="primary" *ngIf="!isVisualizacao" (click)="excluir(itemVenda)">
+                <span class="material-icons">restore_from_trash</span>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row (click)="selectItemVenda(row)"
+            [ngClass]="{ 'tabs-highlight-grid': selectedItemVenda == row?.id }"
+            *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+
+
+
+      <p></p>
+
+      <section>
+        <div class="div-salvar-cancelar">
+          <button mat-raised-button color="warn" class="btn-salvar-cancelar" *ngIf="!isVisualizacao"
+            (click)="cancelar()">
+            Cancelar
+          </button>
+          <button mat-raised-button color="primary" class="btn-salvar-cancelar" *ngIf="!isVisualizacao"
+            (click)="salvar()">
+            Salvar
+          </button>
+          <button mat-raised-button color="accent" class="btn-salvar-cancelar" *ngIf="isVisualizacao"
+            (click)="cancelar()">
+            Voltar
+          </button>
+        </div>
+      </section>
+    </form>
+  </mat-card-content>
+</mat-card>

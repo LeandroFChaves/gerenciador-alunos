@@ -1,0 +1,63 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>Item Venda</mat-card-title>
+
+    <br>
+
+    <form [formGroup]="formulario">
+      <div class="row">
+        <div class="col-md-8">
+          <mat-form-field appearance="fill">
+            <mat-label>Produto</mat-label>
+            <mat-select [(value)]="selectedProduto" [compareWith]="compareWithProduto"
+              (selectionChange)="onProdutoChange($event.value)" formControlName="produto" required>
+              <mat-option *ngFor="let produto of produtos" [value]="produto">
+                {{ produto.nome }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Quantidade</mat-label>
+            <input matInput type="number" id="input-quantidade" formControlName="quantidade"
+              placeholder="Quantidade Produto" min = "1" (change)="onChangeQuantidade($event)" required />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Desconto</mat-label>
+            <input matInput type="number" id="input-desconto" formControlName="desconto" placeholder="Desconto"
+              (change)="onChangeDesconto($event)" min="0.00" step="0.01" />
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Valor</mat-label>
+            <input matInput type="text" id="input-valor" formControlName="valor" placeholder="Valor Produto" [readonly]="true"/>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <p></p>
+
+      <section>
+        <div class="div-salvar-cancelar">
+          <button mat-raised-button color="warn" class="btn-salvar-cancelar" *ngIf="!isVisualizacao"
+            (click)="cancelar()">
+            Cancelar
+          </button>
+          <button mat-raised-button color="primary" class="btn-salvar-cancelar" *ngIf="!isVisualizacao"
+            (click)="salvar()">
+            Incluir Item
+          </button>
+        </div>
+      </section>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,60 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>Vendas</mat-card-title>
+
+    <div class="div-novo">
+      <button mat-raised-button color="primary" class="btn-novo" [routerLink]="['novo']">
+        <mat-icon>note_add</mat-icon> Novo
+      </button>
+    </div>
+
+    <br>
+
+    <mat-table [dataSource]="dataSource" class="table-responsive mat-elevation-z3">
+      <ng-container matColumnDef="pessoaCliente">
+        <mat-header-cell *matHeaderCellDef>Cliente</mat-header-cell>
+        <mat-cell *matCellDef="let venda">{{ venda.pessoaCliente.nome }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="pessoaVendedor">
+        <mat-header-cell *matHeaderCellDef>Vendedor</mat-header-cell>
+        <mat-cell *matCellDef="let venda">{{ venda.pessoaVendedor.nome }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="dataVenda">
+        <mat-header-cell *matHeaderCellDef>Data Venda</mat-header-cell>
+        <mat-cell *matCellDef="let venda">{{ venda.dataVenda | date: 'dd/MM/yyyy' }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="valorLiquido">
+        <mat-header-cell *matHeaderCellDef>Valor Líquido</mat-header-cell>
+        <mat-cell *matCellDef="let venda">{{ venda.valorLiquido }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="acoes">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+
+        <mat-cell *matCellDef="let pessoa" class="action-link col-acoes">
+          <button mat-icon-button color="primary" (click)="visualizar(pessoa, false)">
+            <span class="material-icons">visibility</span>
+          </button>
+          <button mat-icon-button color="primary" (click)="visualizar(pessoa, true)">
+            <span class="material-icons">edit</span>
+          </button>
+          <button mat-icon-button color="primary" (click)="excluir(pessoa)">
+            <span class="material-icons">restore_from_trash</span>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </mat-card-content>
+
+  <ng-template #loading>
+    <div class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+</mat-card>
