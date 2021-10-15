@@ -38,3 +38,5 @@ lerna-debug.log*
 
 .history/
 
+# Database
+docker/aplicacao/database/
