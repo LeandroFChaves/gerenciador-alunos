@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  database:
+    container_name: gerenciador-alunos-database
+    image: postgres
+    hostname: postgresql
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: gerenciador-alunos
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    extra_hosts: 
+      - "host.docker.internal:172.17.0.1"
+
+  adminer:
+    container_name: gerenciador-alunos-adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    extra_hosts: 
+      - "host.docker.internal:172.17.0.1"
+
+  ################################ API ###############################
+  gerenciador-alunos-api:
+    container_name: "gerenciador-alunos-api"
+    build: ./../../gerenciador-alunos-api
+    ports:
+        - "3000:3000"
+    depends_on:
+        - database
+    extra_hosts: 
+      - "host.docker.internal:172.17.0.1"
+    environment:
+      - API_PORT=3000
+      - DATABASE_TYPE=postgres
+      - DATABASE_HOST=host.docker.internal
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=gerenciador-alunos
+      - DATABASE_USERNAME=admin
+      - DATABASE_PASSWORD=admin
+      - DATABASE_SYNCHRONIZE=false
+  ####################### ######## ######## ######## #################
+
+  ################################ UI ################################
+  gerenciador-alunos-ui:
+    container_name: "gerenciador-alunos-ui"
+    build: ./../../gerenciador-alunos-ui
+    depends_on:
+        - gerenciador-alunos-api
+    ports:
+        - "4200:80"
+    extra_hosts: 
+      - "host.docker.internal:172.17.0.1"
+  ####################### ######## ######## ######## #################
