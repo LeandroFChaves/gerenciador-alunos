@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { WinstonModule } from 'nest-winston';
-import { logConfig } from './configs/logs.config';
+import { ConfigModule } from '@nestjs/config';
 
-import { postgreSQLConfig } from './configs/postgresql.config';
+import { logConfig } from './configs/logs.config';
+import { TypeOrmConfigService } from './configs/postgresql.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -15,7 +16,10 @@ import { VendasModule } from './vendas/vendas.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(postgreSQLConfig),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
     WinstonModule.forRoot(logConfig),
     AuthModule,
     PessoasModule,
