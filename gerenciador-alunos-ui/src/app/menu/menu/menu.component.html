@@ -1,0 +1,58 @@
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">
+          menu
+      </mat-icon>
+      <mat-icon *ngIf="sidenav.opened">
+          close
+      </mat-icon>
+  </button>
+
+  <span>Gerenciador de Alunos</span>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+    <img class="avatar mat-elevation-z8" src="assets/imgs/avatar-profile.png" />
+
+    <h4 class="name">John Smith</h4>
+    <p class="designation">Software Engineer</p>
+
+    <mat-divider></mat-divider>
+
+    <button mat-button class="menu-button" [routerLink]="['home']">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-button class="menu-button" [routerLink]="['pessoas']">
+      <mat-icon>person</mat-icon>
+      <span>Pessoas</span>
+    </button>
+    <button mat-button class="menu-button" [routerLink]="['produtos']">
+      <mat-icon>receipt</mat-icon>
+      <span>Produtos</span>
+    </button>
+    <button mat-button class="menu-button" [routerLink]="['vendas']">
+      <mat-icon>attach_money</mat-icon>
+      <span>Vendas</span>
+    </button>
+    <button mat-button class="menu-button">
+      <mat-icon>info</mat-icon>
+      <span>Sobre</span>
+    </button>
+
+    <mat-divider class="mat-divider-margin-top"></mat-divider>
+
+    <button mat-button class="menu-button">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Sair</span>
+    </button>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+      <div class="content-wrapper">
+        <router-outlet></router-outlet>
+      </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
