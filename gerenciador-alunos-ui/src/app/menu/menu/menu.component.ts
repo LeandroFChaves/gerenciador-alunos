@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { delay } from 'rxjs/operators';
 
+import { AuthService } from './../../core/auth.service';
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -13,7 +15,10 @@ export class MenuComponent implements OnInit {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
-  constructor(private observer: BreakpointObserver) {}
+  constructor(
+    private observer: BreakpointObserver,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
   }
@@ -32,6 +37,10 @@ export class MenuComponent implements OnInit {
         }
       }
     );
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 
 }
