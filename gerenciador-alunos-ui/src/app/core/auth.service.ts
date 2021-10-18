@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment } from '../../environments/environment';
 import { Login } from './../login/model/login';
@@ -10,7 +11,11 @@ import { Login } from './../login/model/login';
 })
 export class AuthService {
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private jwtHelper: JwtHelperService
+  ) {}
 
   realizarLogin(login: Login) {
     const headers = new HttpHeaders().append(
@@ -38,6 +43,18 @@ export class AuthService {
     localStorage.clear();
 
     this.router.navigate(['login']);
+  }
+
+  isTokenExpired(): boolean {
+    const token = this.getToken();
+
+    return this.jwtHelper.isTokenExpired(token);
+  }
+
+  getDecodeToken(): any {
+    const token = this.getToken();
+
+    return this.jwtHelper.decodeToken(token);
   }
 
   private getToken(): any {

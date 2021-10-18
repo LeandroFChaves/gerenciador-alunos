@@ -15,12 +15,15 @@ export class MenuComponent implements OnInit {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
+  usuarioLogado: any = {};
+
   constructor(
     private observer: BreakpointObserver,
     private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.usuarioLogado = this.authService.getDecodeToken();
   }
 
   ngAfterViewInit() {
