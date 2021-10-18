@@ -7,19 +7,25 @@ const users = [
     id: 1,
     username: 'user1@user.com',
     password: '$2b$10$EecWnvyBtN4ttSJWILAjs.lnOfVejB7ABCxWGLS0OUCEcbcnwTu5K', //123456
-    role: 'admin',
+    funcao: 'Administrador',
+    role: ['admin'],
+    ativo: true,
   },
   {
     id: 2,
     username: 'user2@user.com',
     password: '$2b$10$EecWnvyBtN4ttSJWILAjs.lnOfVejB7ABCxWGLS0OUCEcbcnwTu5K',
-    role: 'user',
+    funcao: 'Usuário',
+    role: ['user'],
+    ativo: true,
   },
   {
     id: 3,
     username: 'user3@user.com',
     password: '$2b$10$EecWnvyBtN4ttSJWILAjs.lnOfVejB7ABCxWGLS0OUCEcbcnwTu5K',
-    role: 'user',
+    funcao: 'Usuário',
+    role: ['user'],
+    ativo: true,
   },
 ];
 
@@ -33,6 +39,7 @@ export class AuthService {
     const payload = {
       sub: user.id,
       username: user.username,
+      funcao: user.funcao,
       role: user.role,
     };
 
