@@ -23,6 +23,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       username: this.configService.get<string>('DATABASE_USERNAME', 'admin'),
       password: this.configService.get<string>('DATABASE_PASSWORD', 'admin'),
       synchronize: synchronize === 'true',
+      migrationsRun: false,
       entities: [__dirname + '/../**/*.entity.{js,ts}'],
     };
   }

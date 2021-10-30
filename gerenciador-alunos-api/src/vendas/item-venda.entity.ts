@@ -3,6 +3,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   Unique,
@@ -20,12 +21,14 @@ export class ItemVenda extends BaseEntity {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
+  @JoinColumn({ name: 'vendaId' })
   venda: Venda;
 
   @ManyToOne(() => Produto, {
     primary: true,
     eager: true,
   })
+  @JoinColumn({ name: 'produtoId' })
   produto: Produto;
 
   @Column({ nullable: false, type: 'integer' })
