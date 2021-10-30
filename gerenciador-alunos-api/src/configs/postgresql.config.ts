@@ -7,6 +7,11 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   constructor(private configService: ConfigService) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
+    const synchronize = this.configService.get<string>(
+      'DATABASE_SYNCHRONIZE',
+      'false',
+    );
+
     return {
       type: this.configService.get<any>('DATABASE_TYPE', 'postgres'),
       host: this.configService.get<string>('DATABASE_HOST', 'localhost'),
@@ -17,10 +22,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       ),
       username: this.configService.get<string>('DATABASE_USERNAME', 'admin'),
       password: this.configService.get<string>('DATABASE_PASSWORD', 'admin'),
-      synchronize: this.configService.get<boolean>(
-        'DATABASE_SYNCHRONIZE',
-        true,
-      ),
+      synchronize: synchronize === 'true',
       entities: [__dirname + '/../**/*.entity.{js,ts}'],
     };
   }
