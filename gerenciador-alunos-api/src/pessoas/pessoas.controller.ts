@@ -27,6 +27,11 @@ export class PessoasController {
     return await this.pessoasService.findPessoaById(id);
   }
 
+  @Get('operacoes/max-numero-ra')
+  async getMaxNumeroRa(): Promise<string> {
+    return await this.pessoasService.getMaxNumeroRa();
+  }
+
   @Post()
   async createPessoa(
     @Body(ValidationPipe) createPessoaDto: PessoaDto,

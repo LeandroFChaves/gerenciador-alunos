@@ -15,6 +15,15 @@ export class PessoaRepository extends Repository<Pessoa> {
     return { pessoas, total };
   }
 
+  async getMaxNumRa(): Promise<string> {
+    const query = this.createQueryBuilder('pessoa');
+    query.select('MAX(pessoa.ra)', 'max');
+
+    const result = await query.getRawOne();
+
+    return result.max;
+  }
+
   async createPessoa(createPessoaDto: PessoaDto): Promise<Pessoa> {
     try {
       const pessoa = this.create(createPessoaDto);

@@ -25,6 +25,12 @@ export class PessoasService {
     return pessoa;
   }
 
+  async getMaxNumeroRa(): Promise<string> {
+    const numMaxRa = await this.pessoaRepository.getMaxNumRa();
+
+    return numMaxRa;
+  }
+
   async createPessoa(createPessoaDto: PessoaDto): Promise<Pessoa> {
     return this.pessoaRepository.createPessoa(createPessoaDto);
   }

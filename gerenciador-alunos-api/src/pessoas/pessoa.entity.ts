@@ -20,6 +20,9 @@ export class Pessoa extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
+  @Column({ nullable: false, type: 'varchar', length: 50 })
+  ra: string;
+
   @Column({ nullable: false, type: 'varchar', length: 250 })
   nome: string;
 
