@@ -14,8 +14,6 @@ services:
       POSTGRES_DB: gerenciador-alunos
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-    extra_hosts: 
-      - "host.docker.internal:172.17.0.1"
 
   adminer:
     container_name: gerenciador-alunos-adminer
@@ -30,10 +28,11 @@ services:
   gerenciador-alunos-api:
     container_name: "gerenciador-alunos-api"
     build: ./../../gerenciador-alunos-api
+    command: sh -c './wait-for database:5432 -t 30 -- node dist/main'
     ports:
-        - "3000:3000"
+      - "3000:3000"
     depends_on:
-        - database
+      - database
     extra_hosts: 
       - "host.docker.internal:172.17.0.1"
     environment:
@@ -52,9 +51,7 @@ services:
     container_name: "gerenciador-alunos-ui"
     build: ./../../gerenciador-alunos-ui
     depends_on:
-        - gerenciador-alunos-api
+      - gerenciador-alunos-api
     ports:
-        - "4200:80"
-    extra_hosts: 
-      - "host.docker.internal:172.17.0.1"
+      - "4200:80"
   ####################### ######## ######## ######## #################
