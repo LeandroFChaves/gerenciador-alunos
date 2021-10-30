@@ -38,6 +38,7 @@ export class PessoaFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
+      ra: [null, [Validators.maxLength(50)]],
       nome: [null, [Validators.required, Validators.maxLength(250)]],
       cpf: [null, [Validators.required, Validators.maxLength(11)]],
       rg: [null],
@@ -57,7 +58,7 @@ export class PessoaFormComponent implements OnInit {
     });
 
     this.formulario.get('cep')?.statusChanges.pipe(
-      switchMap(status => status === 'VALID' ?
+      switchMap(status => (status === 'VALID' && this.formulario.get('cep')?.value !== null) ?
         this.alunosService.consultarCEP(this.formulario.get('cep')?.value)
         : EMPTY
       )
@@ -73,6 +74,7 @@ export class PessoaFormComponent implements OnInit {
             return this.alunosService.getById(id);
           }
 
+          this.setRa();
           return EMPTY;
         })
       )
@@ -132,6 +134,14 @@ export class PessoaFormComponent implements OnInit {
   cancelar(): void {
     this.formulario.reset();
     this.router.navigate(['pessoas']);
+  }
+
+  private setRa() {
+    this.alunosService.getMaxRa().subscribe((maxRa: string) => {
+      this.formulario.patchValue({
+        ra: parseInt(maxRa) + 1
+      });
+    });
   }
 
   private updateForm(pessoa: Pessoa): void {

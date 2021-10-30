@@ -36,6 +36,10 @@ export class PessoasService {
     );
   }
 
+  getMaxRa() {
+    return this.http.get<string>(`${environment.URL_API}/pessoas/operacoes/max-numero-ra`);
+  }
+
   create(pessoa: PessoaInput) {
     const headers = new HttpHeaders().append('Content-Type', 'application/json');
 

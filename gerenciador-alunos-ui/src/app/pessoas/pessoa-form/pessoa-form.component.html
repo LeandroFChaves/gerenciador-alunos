@@ -6,7 +6,18 @@
 
     <form [formGroup]="formulario">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-4">
+          <mat-form-field appearance="fill">
+            <mat-label>RA</mat-label>
+            <input matInput type="text" id="input-ra" formControlName="ra" placeholder="RA"/>
+
+            <mat-error *ngIf="hasError('ra') && hasError('ra')?.maxlength">
+              RA pode ter no máximo {{ hasError('ra')?.maxlength?.requiredLength }} caracteres.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-8">
           <mat-form-field appearance="fill">
             <mat-label>Nome</mat-label>
             <input matInput type="text" id="input-nome" formControlName="nome" placeholder="Nome" required/>
