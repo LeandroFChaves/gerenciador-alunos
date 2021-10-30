@@ -163,6 +163,23 @@ docker container ls
 
 Existe um volume criado externalizando o postgresql/data para um pasta database/data que ficará localizada dentro da pasta **docker/aplicacao**.
 
+## Comandos Úteis
+##### Build de um Dockerfile
+docker build --no-cache -t gerenciador-alunos-api .
+docker build --no-cache -t gerenciador-alunos-ui .
+
+##### Subindo os containers com docker compose
+docker-compose up --build
+docker-compose up --build -d
+
+##### Parando os containers com docker compose
+docker-compose down --volumes
+
+##### Acessando um container
+```ssh
+docker exec -it ID_CONTAINER /bin/sh
+```
+
 ## Links
 
 Abaixo segue alguns links de tutorias e referências que foram utilizadas durante o desenvolvimento desse projeto.
@@ -180,19 +197,5 @@ https://www.youtube.com/watch?v=k1O3z7Gqvfc
 https://www.youtube.com/watch?v=SinonmkxRSI
 https://www.youtube.com/watch?v=6vu5SkEMG-w 1:22
 
-## Comandos Úteis
-##### Build de um Dockerfile
-docker build --no-cache -t gerenciador-alunos-api .
-docker build --no-cache -t gerenciador-alunos-ui .
+- https://blog.rocketseat.com.br/como-fazer-um-bom-readme
 
-##### Subindo os containers com docker compose
-docker-compose up --build
-docker-compose up --build -d
-
-##### Parando os containers com docker compose
-docker-compose down --volumes
-
-##### Acessando um container
-```ssh
-docker exec -it ID_CONTAINER /bin/sh
-```
